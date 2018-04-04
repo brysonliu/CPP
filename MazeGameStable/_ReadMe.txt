@@ -1,4 +1,4 @@
-Maze Game
+Maze Game 
 
 Author: Bryson Liu
 Date: Tuesday 4-3-2018
