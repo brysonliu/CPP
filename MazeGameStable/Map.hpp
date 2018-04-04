@@ -1,7 +1,6 @@
 #ifndef Map_hpp
 #define Map_hpp
 
-#include "Maze.hpp"
 #include <vector>
 using namespace std;
 

@@ -1,5 +1,4 @@
 #include "Map.hpp"
-#include "Maze.hpp"
 #include <string>
 #include <vector>
 #include <cstdlib>
