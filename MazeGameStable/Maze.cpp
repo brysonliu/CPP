@@ -18,11 +18,17 @@ Maze::Maze()
 
 Maze::~Maze()
 {
-	
+	delete mEnemy1;
+	delete mEnemy2;
+	delete mEnemy3;
+	delete mEnemy4;
+	delete mEnemy5;
 }
 
 void Maze::introduction()
 {
+	system("clear");
+	
 	int size;
 
 	cout << endl;
@@ -106,312 +112,6 @@ Player Maze::createPlayer(char sprite)
 	return newPlayer;
 }
 
-Enemy Maze::createEnemy(char sprite)
-{
-	Enemy newEnemy;
-	newEnemy.sprite = sprite;
-	newEnemy.x = rand() % mMazeSize;
-	newEnemy.y = rand() % mMazeSize;
-	newEnemy.pastDirX = Left;
-	newEnemy.pastDirY = Up;
-
-	while (maze[newEnemy.y][newEnemy.x] != ' ')
-	{
-		newEnemy.x = rand() % mMazeSize;
-		newEnemy.y = rand() % mMazeSize;
-	}
-
-	if (maze[newEnemy.y][newEnemy.x] == ' ')
-	{
-		maze[newEnemy.y][newEnemy.x] = newEnemy.sprite;
-	}
-
-	return newEnemy;
-}
-
-//enemy movement algorithm
-char Maze::MoveEnemy(Enemy& enemy, vector< vector<char> >& maze, int i, int j, string& smove, bool& nc)
-{
-	if (nc)
-	{
-		bool goUp = false;
-		//possible directions
-		bool psbUp = false;
-		bool psbDown = false;
-		bool psbRight = false;
-		bool psbLeft = false;
-
-		//check possible directions
-		if (maze[enemy.y][enemy.x + 1] != '#' && maze[enemy.y][enemy.x + 1] != 'E') //RIGHT
-		{
-			psbRight = true;
-		}
-		if (maze[enemy.y][enemy.x - 1] != '#' && maze[enemy.y][enemy.x - 1] != 'E') //LEFT
-		{
-			psbLeft = true;
-		}
-		if (maze[enemy.y + 1][enemy.x] != '#' && maze[enemy.y + 1][enemy.x] != 'E') //DOWN
-		{
-			psbDown = true;
-		}
-		if (maze[enemy.y - 1][enemy.x] != '#' && maze[enemy.y - 1][enemy.x] != 'E') //UP
-		{
-			psbUp = true;
-		}
-
-		//movement tracking
-		enum Mv { up, right, down, left, NA };
-		Mv move = NA;
-
-		//previous movement
-		if (smove == "up")
-		{
-			move = up;
-		}
-		else if (smove == "right")
-		{
-			move = right;
-		}
-		else if (smove == "down")
-		{
-			move = down;
-		}
-		else if (smove == "left")
-		{
-			move = left;
-		}
-		else
-		{
-			move = NA;
-		}
-
-		//prevent repetitive enemy movement
-		if (enemy.pastDirX == Right && !psbRight)
-		{
-			if (enemy.pastDirY == Up) //if past move was up
-			{
-				if (psbUp) //check possible up
-				{
-					move = up;
-				}
-				else if (psbDown && move != up) //check possible down
-				{
-					move = down;
-				}
-				else if (psbLeft) //check possible left
-				{
-					move = left;
-				}
-				else //move down if down and left fail
-				{
-					move = down;
-				}
-			}
-
-			else //if past movement down
-			{
-				if (psbDown) //check possible down
-				{
-					move = down;
-				}
-				else if (psbUp && move != down) //check possible up
-				{
-					move = up;
-				}
-				else if (psbLeft) //check possible left
-				{
-					move = left;
-				}
-				else //move up if all checks fail
-				{
-					move = up;
-				}
-			}
-		}
-
-		else if (enemy.pastDirX == Right && psbRight)
-		{
-			move = right;
-		}
-
-		else if (enemy.pastDirX == Left && !psbLeft)
-		{
-			if (enemy.pastDirY == Up)
-			{
-				if (psbUp)
-				{
-					move = up;
-				}
-				else if (psbDown && move != up)
-				{
-					move = down;
-				}
-				else if (psbRight)
-				{
-					move = right;
-				}
-				else
-				{
-					move = down;
-				}
-			}
-
-			else
-			{
-				if (psbDown)
-				{
-					move = down;
-				}
-				else if (psbUp && move != down)
-				{
-					move = up;
-				}
-				else if (psbRight)
-				{
-					move = right;
-				}
-				else
-				{
-					move = up;
-				}
-			}
-		}
-
-		else if (enemy.pastDirX == Left && psbLeft)
-		{
-			move = left;
-		}
-
-		else if (enemy.pastDirY == Up && !psbUp)
-		{
-			if (enemy.pastDirX == Right)
-			{
-				if (psbRight)
-				{
-					move = right;
-				}
-				else if (psbLeft && move != right)
-				{
-					move = left;
-				}
-				else if (psbDown)
-				{
-					move = down;
-				}
-				else
-				{
-					move = left;
-				}
-			}
-
-			else
-			{
-				if (psbLeft)
-				{
-					move = left;
-				}
-				else if (psbRight && move != left)
-				{
-					move = right;
-				}
-				else if (psbDown)
-				{
-					move = down;
-				}
-				else
-				{
-					move = right;
-				}
-			}
-		}
-
-		else if (enemy.pastDirY == Up && psbUp)
-		{
-			move = up;
-		}
-
-		else if (enemy.pastDirY == Down && !psbDown)
-		{
-			if (enemy.pastDirX == Right)
-			{
-				if (psbRight)
-				{
-					move = right;
-				}
-				else if (psbLeft && move != right)
-				{
-					move = left;
-				}
-				else if (psbUp)
-				{
-					move = up;
-				}
-				else
-				{
-					move = left;
-				}
-			}
-
-			else
-			{
-				if (psbLeft)
-				{
-					move = left;
-				}
-				else if (psbRight && move != left)
-				{
-					move = right;
-				}
-				else if (psbRight)
-				{
-					move = up;
-				}
-				else
-				{
-					move = right;
-				}
-			}
-		}
-
-		else if (enemy.pastDirY == Down && psbDown)
-		{
-			move = down;
-		}
-
-		switch (move) {
-		case up:
-			maze[enemy.y][enemy.x] = ' ';
-			enemy.pastDirY = Up;
-			smove = "up";
-			enemy.y--;
-			break;
-		case right:
-			maze[enemy.y][enemy.x] = ' ';
-			enemy.pastDirX = Right;
-			smove = "right";
-			enemy.x++;
-			break;
-		case down:
-			maze[enemy.y][enemy.x] = ' ';
-			enemy.pastDirY = Down;
-			smove = "down";
-			enemy.y++;
-			break;
-		case left:
-			maze[enemy.y][enemy.x] = ' ';
-			enemy.pastDirX = Left;
-			smove = "left";
-			enemy.x--;
-			break;
-		case NA:
-			smove = "NA";
-			break;
-		}
-	}
-	nc = false;
-	return maze[i][j];
-}
-
 char Maze::getch()
 {
   system("stty raw");
@@ -427,11 +127,11 @@ void Maze::play()
 	
 	Player player = createPlayer('@');
 	
-	Enemy enemy1 = createEnemy('X');
-	Enemy enemy2 = createEnemy('X');
-	Enemy enemy3 = createEnemy('X');
-	Enemy enemy4 = createEnemy('X');
-	Enemy enemy5 = createEnemy('X');
+	mEnemy1 = new Enemy(maze, mMazeSize, 'X');
+	mEnemy2 = new Enemy(maze, mMazeSize, 'X');
+	mEnemy3 = new Enemy(maze, mMazeSize, 'X');
+	mEnemy4 = new Enemy(maze, mMazeSize, 'X');
+	mEnemy5 = new Enemy(maze, mMazeSize, 'X');
 
 	string prevmove1 = "NA";
 	string prevmove2 = "NA";
@@ -450,11 +150,11 @@ void Maze::play()
 			maze[player.y][player.x] = player.sprite;
 		}
 
-		maze[enemy1.y][enemy1.x] = enemy1.sprite;
-		maze[enemy2.y][enemy2.x] = enemy2.sprite;
-		maze[enemy3.y][enemy3.x] = enemy3.sprite;
-		maze[enemy4.y][enemy4.x] = enemy4.sprite;
-		maze[enemy5.y][enemy5.x] = enemy5.sprite;
+		maze[mEnemy1->y][mEnemy1->x] = mEnemy1->sprite;
+		maze[mEnemy2->y][mEnemy2->x] = mEnemy2->sprite;
+		maze[mEnemy3->y][mEnemy3->x] = mEnemy3->sprite;
+		maze[mEnemy4->y][mEnemy4->x] = mEnemy4->sprite;
+		maze[mEnemy5->y][mEnemy5->x] = mEnemy5->sprite;
 
 		for (int y = 0; y < mMazeSize; y++)
 		{
@@ -523,9 +223,7 @@ void Maze::play()
 				exit(0);
 				break;
 		}
-
-		//int x = newEnemy.x;
-		//int y = newEnemy.y;
+		
 		bool once1 = true;
 		bool once2 = true;
 		bool once3 = true;
@@ -536,31 +234,31 @@ void Maze::play()
 		{
 			for (int j = 0; j < mMazeSize; j++)
 			{
-				maze[i][j] = MoveEnemy(enemy1, maze, i, j, prevmove1, once1);
-				maze[i][j] = MoveEnemy(enemy2, maze, i, j, prevmove2, once2);
-				maze[i][j] = MoveEnemy(enemy3, maze, i, j, prevmove3, once3);
-				maze[i][j] = MoveEnemy(enemy4, maze, i, j, prevmove4, once4);
-				maze[i][j] = MoveEnemy(enemy5, maze, i, j, prevmove5, once5);
+				maze[i][j] = mEnemy1->move(maze, i, j, prevmove1, once1);
+				maze[i][j] = mEnemy2->move(maze, i, j, prevmove2, once2);
+				maze[i][j] = mEnemy3->move(maze, i, j, prevmove3, once3);
+				maze[i][j] = mEnemy4->move(maze, i, j, prevmove4, once4);
+				maze[i][j] = mEnemy5->move(maze, i, j, prevmove5, once5);
 			}
 		}
 
-		if (player.x == enemy1.x && player.y == enemy1.y)
+		if (player.x == mEnemy1->x && player.y == mEnemy1->y)
 		{
 			mHitPoints = mHitPoints - 20;
 		}
-		if (player.x == enemy2.x && player.y == enemy2.y)
+		if (player.x == mEnemy2->x && player.y == mEnemy2->y)
 		{
 			mHitPoints = mHitPoints - 20;
 		}
-		if (player.x == enemy3.x && player.y == enemy3.y)
+		if (player.x == mEnemy3->x && player.y == mEnemy3->y)
 		{
 			mHitPoints = mHitPoints - 20;
 		}
-		if (player.x == enemy4.x && player.y == enemy4.y)
+		if (player.x == mEnemy4->x && player.y == mEnemy4->y)
 		{
 			mHitPoints = mHitPoints - 20;
 		}
-		if (player.x == enemy5.x && player.y == enemy5.y)
+		if (player.x == mEnemy5->x && player.y == mEnemy5->y)
 		{
 			mHitPoints = mHitPoints - 20;
 		}

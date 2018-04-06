@@ -1,0 +1,314 @@
+#include "Enemy.hpp"
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <vector>
+using namespace std;
+
+Enemy::Enemy(vector< vector<char> >& maze, int size, char icon)
+{
+    sprite = icon;
+	x = rand() % size;
+	y = rand() % size;
+	pastDirX = Left;
+	pastDirY = Up;
+
+	while (maze[y][x] != ' ')
+	{
+		x = rand() % size;
+		y = rand() % size;
+	}
+
+	if (maze[y][x] == ' ')
+	{
+		maze[y][x] = sprite;
+	}
+}
+
+Enemy::~Enemy()
+{
+
+}
+
+//enemy movement algorithm
+char Enemy::move(vector< vector<char> >& maze, int i, int j, string& smove, bool& nc)
+{
+	if (nc)
+	{
+		bool goUp = false;
+		//possible directions
+		bool psbUp = false;
+		bool psbDown = false;
+		bool psbRight = false;
+		bool psbLeft = false;
+
+		//check possible directions
+		if (maze[y][x + 1] != '#' && maze[y][x + 1] != 'E') //RIGHT
+		{
+			psbRight = true;
+		}
+		if (maze[y][x - 1] != '#' && maze[y][x - 1] != 'E') //LEFT
+		{
+			psbLeft = true;
+		}
+		if (maze[y + 1][x] != '#' && maze[y + 1][x] != 'E') //DOWN
+		{
+			psbDown = true;
+		}
+		if (maze[y - 1][x] != '#' && maze[y - 1][x] != 'E') //UP
+		{
+			psbUp = true;
+		}
+
+		//movement tracking
+		enum Mv { up, right, down, left, NA };
+		Mv move = NA;
+
+		//previous movement
+		if (smove == "up")
+		{
+			move = up;
+		}
+		else if (smove == "right")
+		{
+			move = right;
+		}
+		else if (smove == "down")
+		{
+			move = down;
+		}
+		else if (smove == "left")
+		{
+			move = left;
+		}
+		else
+		{
+			move = NA;
+		}
+
+		//prevent repetitive enemy movement
+		if (pastDirX == Right && !psbRight)
+		{
+			if (pastDirY == Up) //if past move was up
+			{
+				if (psbUp) //check possible up
+				{
+					move = up;
+				}
+				else if (psbDown && move != up) //check possible down
+				{
+					move = down;
+				}
+				else if (psbLeft) //check possible left
+				{
+					move = left;
+				}
+				else //move down if down and left fail
+				{
+					move = down;
+				}
+			}
+
+			else //if past movement down
+			{
+				if (psbDown) //check possible down
+				{
+					move = down;
+				}
+				else if (psbUp && move != down) //check possible up
+				{
+					move = up;
+				}
+				else if (psbLeft) //check possible left
+				{
+					move = left;
+				}
+				else //move up if all checks fail
+				{
+					move = up;
+				}
+			}
+		}
+
+		else if (pastDirX == Right && psbRight)
+		{
+			move = right;
+		}
+
+		else if (pastDirX == Left && !psbLeft)
+		{
+			if (pastDirY == Up)
+			{
+				if (psbUp)
+				{
+					move = up;
+				}
+				else if (psbDown && move != up)
+				{
+					move = down;
+				}
+				else if (psbRight)
+				{
+					move = right;
+				}
+				else
+				{
+					move = down;
+				}
+			}
+
+			else
+			{
+				if (psbDown)
+				{
+					move = down;
+				}
+				else if (psbUp && move != down)
+				{
+					move = up;
+				}
+				else if (psbRight)
+				{
+					move = right;
+				}
+				else
+				{
+					move = up;
+				}
+			}
+		}
+
+		else if (pastDirX == Left && psbLeft)
+		{
+			move = left;
+		}
+
+		else if (pastDirY == Up && !psbUp)
+		{
+			if (pastDirX == Right)
+			{
+				if (psbRight)
+				{
+					move = right;
+				}
+				else if (psbLeft && move != right)
+				{
+					move = left;
+				}
+				else if (psbDown)
+				{
+					move = down;
+				}
+				else
+				{
+					move = left;
+				}
+			}
+
+			else
+			{
+				if (psbLeft)
+				{
+					move = left;
+				}
+				else if (psbRight && move != left)
+				{
+					move = right;
+				}
+				else if (psbDown)
+				{
+					move = down;
+				}
+				else
+				{
+					move = right;
+				}
+			}
+		}
+
+		else if (pastDirY == Up && psbUp)
+		{
+			move = up;
+		}
+
+		else if (pastDirY == Down && !psbDown)
+		{
+			if (pastDirX == Right)
+			{
+				if (psbRight)
+				{
+					move = right;
+				}
+				else if (psbLeft && move != right)
+				{
+					move = left;
+				}
+				else if (psbUp)
+				{
+					move = up;
+				}
+				else
+				{
+					move = left;
+				}
+			}
+
+			else
+			{
+				if (psbLeft)
+				{
+					move = left;
+				}
+				else if (psbRight && move != left)
+				{
+					move = right;
+				}
+				else if (psbRight)
+				{
+					move = up;
+				}
+				else
+				{
+					move = right;
+				}
+			}
+		}
+
+		else if (pastDirY == Down && psbDown)
+		{
+			move = down;
+		}
+
+		switch (move) {
+		case up:
+			maze[y][x] = ' ';
+			pastDirY = Up;
+			smove = "up";
+			y--;
+			break;
+		case right:
+			maze[y][x] = ' ';
+			pastDirX = Right;
+			smove = "right";
+			x++;
+			break;
+		case down:
+			maze[y][x] = ' ';
+			pastDirY = Down;
+			smove = "down";
+			y++;
+			break;
+		case left:
+			maze[y][x] = ' ';
+			pastDirX = Left;
+			smove = "left";
+			x--;
+			break;
+		case NA:
+			smove = "NA";
+			break;
+		}
+	}
+	nc = false;
+	return maze[i][j];
+}
