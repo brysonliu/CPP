@@ -40,6 +40,7 @@ void Map::initialize(vector< vector<char> >& map)
             map[i][j] = '#';
         }
     }
+    
     generate(map, 1, 1);
 }
 
@@ -68,6 +69,7 @@ int Map::countVisitedNeighbor(vector< vector<char> >& map, int i, int j)
 {
     int direct[][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
     int count = 0;
+
     for (int k = 0; k < 4; ++k)
     {
         int ni = i + direct[k][0];
@@ -75,6 +77,7 @@ int Map::countVisitedNeighbor(vector< vector<char> >& map, int i, int j)
         if(ni < 0 || nj < 0 || ni >= map.size() || nj >= map[0].size()) continue;
         if(map[ni][nj] == ' ') count++;
     }
+
     return count;
 }
 
@@ -99,6 +102,7 @@ void Map::endpoints(vector< vector<char> >& map)
     bool notEnd = true;
     int start = 1;
     int end = map.size() - 2;
+
     while(notStart)
     {
         if(map[start][1] == ' ')
@@ -111,6 +115,7 @@ void Map::endpoints(vector< vector<char> >& map)
             start++;
         }
     }
+
     while(notEnd)
     {
         if(map[end][map.size() - 2] == ' ')
