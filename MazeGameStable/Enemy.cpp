@@ -10,6 +10,8 @@ Enemy::Enemy(vector< vector<char> >& maze, int size, char icon)
     sprite = icon;
 	x = rand() % size;
 	y = rand() % size;
+	once = true;
+	prevMove = "NA";
 	pastDirX = Left;
 	pastDirY = Up;
 
@@ -30,10 +32,15 @@ Enemy::~Enemy()
 
 }
 
-//enemy movement algorithm
-char Enemy::move(vector< vector<char> >& maze, int i, int j, string& smove, bool& nc)
+void Enemy::resetMove()
 {
-	if (nc)
+	once = true;
+}
+
+//enemy movement algorithm
+char Enemy::move(vector< vector<char> >& maze, int i, int j)
+{
+	if (once)
 	{
 		bool goUp = false;
 		//possible directions
@@ -65,19 +72,19 @@ char Enemy::move(vector< vector<char> >& maze, int i, int j, string& smove, bool
 		Mv move = NA;
 
 		//previous movement
-		if (smove == "up")
+		if (prevMove == "up")
 		{
 			move = up;
 		}
-		else if (smove == "right")
+		else if (prevMove == "right")
 		{
 			move = right;
 		}
-		else if (smove == "down")
+		else if (prevMove == "down")
 		{
 			move = down;
 		}
-		else if (smove == "left")
+		else if (prevMove == "left")
 		{
 			move = left;
 		}
@@ -283,32 +290,32 @@ char Enemy::move(vector< vector<char> >& maze, int i, int j, string& smove, bool
 		case up:
 			maze[y][x] = ' ';
 			pastDirY = Up;
-			smove = "up";
+			prevMove = "up";
 			y--;
 			break;
 		case right:
 			maze[y][x] = ' ';
 			pastDirX = Right;
-			smove = "right";
+			prevMove = "right";
 			x++;
 			break;
 		case down:
 			maze[y][x] = ' ';
 			pastDirY = Down;
-			smove = "down";
+			prevMove = "down";
 			y++;
 			break;
 		case left:
 			maze[y][x] = ' ';
 			pastDirX = Left;
-			smove = "left";
+			prevMove = "left";
 			x--;
 			break;
 		case NA:
-			smove = "NA";
+			prevMove = "NA";
 			break;
 		}
 	}
-	nc = false;
+	once = false;
 	return maze[i][j];
 }

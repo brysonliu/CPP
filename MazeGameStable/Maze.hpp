@@ -22,21 +22,15 @@ class Maze
         int mMazeSize;
         bool mHasntWon;
         int mHitPoints;
+        int mEnemyCount;
         class Map* mMap;
         class Player* mPlayer;
-        class Enemy* mEnemy1;
-        class Enemy* mEnemy2;
-        class Enemy* mEnemy3;
-        class Enemy* mEnemy4;
-        class Enemy* mEnemy5;
-        class Enemy* mEnemy6;
-        class Enemy* mEnemy7;
-        class Enemy* mEnemy8;
-        class Enemy* mEnemy9;
+        vector<class Enemy *> mEnemy;
 
         void introduction();
         void mazeTemplate();
-        void displayMaze();
+        void displayMazeInitial();
+        void displayMazePlaying();
         char getch();
 };
 

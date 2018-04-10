@@ -14,12 +14,16 @@ class Enemy
         char sprite;
         int x;
         int y;
+        bool once;
+        string prevMove;
         DirectionX pastDirX;
         DirectionY pastDirY;
         
         Enemy(vector< vector<char> >& maze, int size, char icon);
         ~Enemy();
-        char move(vector< vector<char> >& maze, int i, int j, string& smove, bool& nc);
+        
+        void resetMove();
+        char move(vector< vector<char> >& maze, int i, int j);
 };
 
 #endif
