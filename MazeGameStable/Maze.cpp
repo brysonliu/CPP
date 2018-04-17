@@ -51,7 +51,7 @@ void Maze::introduction()
 		{
 			break;
 		}
-		else if (cin.fail())
+		else
 		{
 			cin.clear();
 			cin.ignore(1000, '\n');
@@ -126,6 +126,34 @@ void Maze::displayMazePlaying()
 	cout << "Last User Input: ";
 }
 
+int Maze::endPointX()
+{
+	for (int x = 0; x < mMazeSize; x++)
+	{
+		for (int y = 0; y < mMazeSize; y++)
+		{
+			if (maze[x][y] == 'E')
+			{
+				return x;
+			}
+		}
+	}
+}
+
+int Maze::endPointY()
+{
+	for (int x = 0; x < mMazeSize; x++)
+	{
+		for (int y = 0; y < mMazeSize; y++)
+		{
+			if (maze[x][y] == 'E')
+			{
+				return y;
+			}
+		}
+	}
+}
+
 char Maze::getch()
 {
   system("stty raw");
@@ -147,12 +175,17 @@ void Maze::play()
 	{
 		mEnemy[e] = new Enemy(maze, mMazeSize, 'X');
 	}
+
+	int endX = endPointX();
+	int endY = endPointY();
 	
 	displayMazeInitial();
-
+	
 	while (mHasntWon)
 	{
-		if (maze[mPlayer->y][mPlayer->x] == ' ')
+		if (maze[mPlayer->y][mPlayer->x] == ' ' &&
+			maze[mPlayer->y][mPlayer->x] != 'E' &&
+			maze[mPlayer->y][mPlayer->x] != 'S')
 		{
 			maze[mPlayer->y][mPlayer->x] = mPlayer->sprite;
 		}
@@ -252,7 +285,7 @@ void Maze::play()
 			mHasntWon = false;
 		}
 
-		if (maze[mPlayer->x + 1][mPlayer->y] == 'E' || maze[mPlayer->x][mPlayer->y + 1] == 'E')
+		if (mPlayer->x == endX && mPlayer->y == endY)
 		{
 			displayMazePlaying();
 			cout << endl << endl << "YOU WIN!" << endl << endl;

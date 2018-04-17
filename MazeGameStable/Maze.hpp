@@ -31,6 +31,8 @@ class Maze
         void mazeTemplate();
         void displayMazeInitial();
         void displayMazePlaying();
+        int endPointX();
+        int endPointY();
         char getch();
 };
 
