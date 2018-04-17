@@ -1,10 +1,10 @@
 MAZE GAME
 
 Author: Bryson Liu
-Date: Monday 4-9-2018
-Time: 9:35:54 PM (UTC-8; Pacific)
-Version: 2.40 (Stable)
-Build: 2040 
+Date: Monday 4-16-2018
+Time: 5:37:25 PM (UTC-8; Pacific)
+Version: 2.43 (Stable)
+Build: 2043 
 
 
 ChangeLog
@@ -25,3 +25,4 @@ v2.26 -- completed thorough pass through on all objects to check for
          - playfield stability
 v2.37 -- added dynamic enemy numbers and parsing depending on size of maze
 v2.40 -- created vector based object array to handle dynamic instantiation of enemies in maze
+v2.43 -- improved win condition checking
