@@ -180,7 +180,7 @@ Overloading: The base and derived classes will have functions with the same name
 
 
 Page 811 Exercise #1
-1) (see cPlusPlus/source/repos/programmingExerciseOne)
+1) (see https://github.com/brysonliu/CPP/tree/master/ksamson_clockType)
 
 
 
