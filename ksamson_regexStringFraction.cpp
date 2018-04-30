@@ -17,7 +17,7 @@ int main()
         cin >> str;
         smatch m;
 
-		regex e("([[:w:]]+)[/]([[:w:]]+)([+|*|/]|[\-])([[:w:]]+)[/]([[:w:]])");
+        regex e("([[:w:]]+)[/]([[:w:]]+)([+|*|/]|[\-])([[:w:]]+)[/]([[:w:]])");
 
         bool found = regex_search(str, m, e);
 
