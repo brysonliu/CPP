@@ -7,10 +7,10 @@ using namespace std;
 int main()
 {
     string str;
-	int numerator1;
-	int numerator2;
-	int denominator1;
-	int denominator2;
+    int numerator1;
+    int numerator2;
+    int denominator1;
+    int denominator2;
 
     while (true)
     {
