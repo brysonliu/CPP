@@ -1,0 +1,7 @@
+﻿  HelloWorld.cpp
+c:\users\kcfs2_000\desktop\new folder\helloworld.cpp(222): warning C4129: 'd': unrecognized character escape sequence
+c:\users\kcfs2_000\desktop\new folder\helloworld.cpp(222): warning C4474: 'swscanf_s' : too many arguments passed for format string
+  c:\users\kcfs2_000\desktop\new folder\helloworld.cpp(222): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+c:\users\kcfs2_000\desktop\new folder\helloworld.cpp(197): warning C4101: 'input': unreferenced local variable
+c:\users\kcfs2_000\desktop\new folder\helloworld.cpp(197): warning C4101: 'output': unreferenced local variable
+  HelloWorld.vcxproj -> C:\Users\kcfs2_000\Desktop\New folder\Debug\HelloWorld.exe
