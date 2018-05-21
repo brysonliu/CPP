@@ -219,7 +219,7 @@ INT_PTR CALLBACK FracCalc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case IDC_CALCULATE:
 			GetDlgItemTextW(hDlg, IDC_INPUTBOX, text, textLen);
-			wscanf_s(text, L"\d", &inputString);  //set to regex input the calculator takes.
+			wscanf_s(text, L"^-? ((\\d + ) ? \\d + / \\d + | \\d + )", &inputString);  //set to regex input the calculator takes.
 			//WideCharToMultiByte(CP_UTF8, 0, inputString, -1, NULL, 0, NULL, NULL);
             WideCharToMultiByte(CP_UTF8, 0, inputWide, -1, inputString, 0, NULL, NULL);
             MultiByteToWideChar(CP_ACP, 0, outputString, -1, outputWide, NULL);
