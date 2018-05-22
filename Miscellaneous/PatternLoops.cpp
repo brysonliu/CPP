@@ -3,32 +3,32 @@ using namespace std;
 
 void diamond(int size)
 {
-    int k, c, space = size - 1;
+    int k, c, space = size * 2 - 2;
 
     for (k = 1; k <= size; k++)
     {
         for (c = 1; c <= space; c++)
             cout<< " ";
 
-        space--;
+        space = space - 2;
 
         for (c = 1; c <= 2 * k - 1; c++)
-            cout<< "*";
+            cout<< "* ";
 
         cout<< "\n";
     }
     
-    space = 1;
+    space = 2;
     
     for (k = 1; k <= size - 1; k++)
     {
         for (c = 1; c <= space; c++)
             cout<< " ";
     
-        space++;
+        space = space + 2;
     
         for (c = 1 ; c <= 2 * (size - k) - 1; c++)
-            cout<< "*";
+            cout<< "* ";
     
         cout<< "\n";
     }
