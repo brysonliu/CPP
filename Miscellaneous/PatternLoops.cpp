@@ -23,6 +23,9 @@ void star(int size)
 
 int main()
 {
-    star(5);
+    int size;
+    cout << "Size of pattern: ";
+    cin >> size;
+    star(size);
     return 0;
 }
