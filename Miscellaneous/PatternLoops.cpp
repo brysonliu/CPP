@@ -1,31 +1,46 @@
 #include <iostream>
 using namespace std;
 
-void star(int size)
+void diamond(int size)
 {
-    for (int i = 0; i < size; i++)
+    int k, c, space = size - 1;
+
+    for (k = 1; k <= size; k++)
     {
-        for (int j = size; j > i; j--)
-        {
-            cout << "*";
-        }
-        cout << endl;
+        for (c = 1; c <= space; c++)
+            cout<< " ";
+
+        space--;
+
+        for (c = 1; c <= 2 * k - 1; c++)
+            cout<< "*";
+
+        cout<< "\n";
     }
-    for (int l = 0; l < size; l++)
+    
+    space = 1;
+    
+    for (k = 1; k <= size - 1; k++)
     {
-        for (int m = 0; m <= l; m++)
-        {
-            cout << "*";
-        }
-        cout << endl;
+        for (c = 1; c <= space; c++)
+            cout<< " ";
+    
+        space++;
+    
+        for (c = 1 ; c <= 2 * (size - k) - 1; c++)
+            cout<< "*";
+    
+        cout<< "\n";
     }
 }
 
 int main()
 {
     int size;
-    cout << "Size of pattern: ";
+    cout << endl << "Size of pattern: ";
     cin >> size;
-    star(size);
+    cout << endl;
+    diamond(size);
+    cout << endl;
     return 0;
 }
