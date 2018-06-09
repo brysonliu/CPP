@@ -2,6 +2,9 @@
 #define Player_hpp
 
 #include "Maze.hpp"
+#include <iostream>
+#include <vector>
+using namespace std;
 
 class Player
 {

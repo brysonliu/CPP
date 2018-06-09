@@ -1,11 +1,4 @@
 #include "Map.hpp"
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <utility>
-using namespace std;
 
 Map::Map(int size)
 {

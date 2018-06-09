@@ -1,14 +1,4 @@
 #include "Maze.hpp"
-#include <stdlib.h>
-#include <string>
-#include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-#include <vector>
-using namespace std;
 
 Maze::Maze()
 {
@@ -33,8 +23,8 @@ void Maze::introduction()
 
 	cout << endl;
 	cout << "WELCOME TO THE MAZE! \n \n" <<
-			"Your goal is to get your sprite (@) from the start of the maze (marked by an S) \n" <<
-			"to the end of the maze (marked by an E) while avoiding enemies (marked by Xs). \n" <<
+			"Your goal is to get your sprite (@) from the start of the maze (marked by an \"S\") \n" <<
+			"to the end of the maze (marked by an \"E\") while avoiding enemies (marked by \"X\"s). \n" <<
 			"Enemies will deal 20 damage to your sprite upon contact. If it loses all 100 hit points, \n" <<
 			"you shall lose! Good luck!" << endl << endl;
 	cout << "Controls: W - Up \n" <<
@@ -261,6 +251,7 @@ void Maze::play()
 			case 'q':
 				displayMazePlaying();
 				cout << endl << endl << "Maze Run Terminated." << endl << endl;
+				mHasntWon = false;
 				exit(0);
 				break;
 		}

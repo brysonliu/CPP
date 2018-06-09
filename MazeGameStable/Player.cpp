@@ -1,7 +1,4 @@
 #include "Player.hpp"
-#include <iostream>
-#include <vector>
-using namespace std;
 
 Player::Player(char icon)
 {

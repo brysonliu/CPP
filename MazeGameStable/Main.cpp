@@ -5,7 +5,7 @@ int main()
 {
     srand(time(NULL));
 
-    Maze* mazeGame = new Maze();
+    Maze *mazeGame = new Maze();
     mazeGame->play();
     delete mazeGame;
     

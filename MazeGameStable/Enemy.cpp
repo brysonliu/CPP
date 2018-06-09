@@ -1,11 +1,6 @@
 #include "Enemy.hpp"
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <vector>
-using namespace std;
 
-Enemy::Enemy(vector< vector<char> >& maze, int size, char icon)
+Enemy::Enemy(vector< vector<char> > &maze, int size, char icon)
 {
     sprite = icon;
 	x = rand() % size;
@@ -38,7 +33,7 @@ void Enemy::resetMove()
 }
 
 //enemy movement algorithm
-char Enemy::move(vector< vector<char> >& maze, int i, int j)
+char Enemy::move(vector< vector<char> > &maze, int i, int j)
 {
 	if (once)
 	{
