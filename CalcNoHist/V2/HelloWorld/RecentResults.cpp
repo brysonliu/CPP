@@ -20,7 +20,7 @@ int RecentResults::addResult(const Fraction & f)
 
 Fraction RecentResults::operator[](int i)
 {
-	
+	recentlist[i];
 }
 
 
