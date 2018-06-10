@@ -23,15 +23,4 @@ Fraction RecentResults::operator[](int i)
 	return Fraction();
 }
 
-RecentResults::RecentResults()
-{
-
-}
-RecentResults::~RecentResults()
-{
-
-}
-
-
-
 
