@@ -1,0 +1,59 @@
+Bryson Liu
+6 - 04 - 18
+Assignment 4
+
+
+Chapter 21
+
+Problem 2
+A container is used to store data, while an iterator is used to
+read the data stored in a container.
+
+Problem 3
+A container is used to store data, while an algorithm is used to
+manipulate the data stored in a container.
+
+Problem 4
+The essential difference between a set and a multiset is that
+in a set the keys must be unique, while a multiset permits duplicate keys.
+
+Problem 5
+A STL function object contains a function that can be treated as a
+function using the function call operator.
+
+Problem 6
+27 32 45 6 18 5 92 10 32 29
+27 5 92 10 32 29 92 10 32 29
+
+Problem 7
+66 2 15 99 37 13 87 18 35 46 32
+32 46 35 18 46 35 18 87 13 37 99
+
+Problem 8
+0 2 6 12 20
+
+Problem 9
+0 0 8 12 24
+
+Problem 10
+27 3 3 3 45 45 12 3 3 1 1 1
+27 3 45 12 3 1
+
+Problem 11
+a: intList1 = {7, 8, 19, 90, 15, 13, 15, 16, 18, 90, 30, 11, 88, 26}
+b: intList1 = {12, 14, 20, 13, 15, 16, 18, 90, 30, 11, 88, 26}
+
+Problem 12
+The Predicate concept describes a callable that returns a value
+testable as a bool. Predicate is typically used with algorithms that
+take input data (individual objects/containers) and a predicate, which
+is then called on input data to decide on further course of action.
+
+Problem 13
+A back_inserter uses the push_back operation of the container while
+a front_inserter uses the push_front operation of the container to
+add elements to the container. Furthermore, a front_inserter cannot be
+used for the vector container.
+
+Problem 14
+a: 7 6 9 1 2 3 4
