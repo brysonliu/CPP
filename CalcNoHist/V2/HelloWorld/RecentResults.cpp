@@ -15,12 +15,12 @@ RecentResults::~RecentResults()
 
 int RecentResults::addResult(const Fraction & f)
 {
-	return 0;
+	void push_back(const Fraction &f);
 }
 
 Fraction RecentResults::operator[](int i)
 {
-	return Fraction();
+	
 }
 
 

@@ -10,7 +10,8 @@ public:
 	~RecentResults();
 	int addResult(const Fraction &f);
 	Fraction operator[](int i);
-	
+	int i;
+
 };
 
 
