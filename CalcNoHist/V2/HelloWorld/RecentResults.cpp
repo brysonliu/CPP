@@ -20,9 +20,3 @@ Fraction RecentResults::operator[](int i)
 {
 	return recentList[i] ;
 }
-
-
-
-
-
-
