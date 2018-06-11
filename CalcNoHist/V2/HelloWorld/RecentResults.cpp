@@ -4,24 +4,23 @@
 #include "RecentResults.h"
 #include "Fraction.h"
 
-RecentResults::RecentResults()
+RecentResults::RecentResults() : recentList{}
 {
+
 }
 
-
-RecentResults::~RecentResults()
-{
-}
 
 int RecentResults::addResult(const Fraction & f)
 {
-	void push_back(const Fraction &f);
+	recentList.push_back(f);
+	return recentList.size() - 1;
 }
 
 Fraction RecentResults::operator[](int i)
 {
-	recentlist[i];
+	return recentList[i] ;
 }
+
 
 
 
