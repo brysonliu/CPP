@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "RecentResults.h"
 #include "Fraction.h"
+#include "Calculate.h"
 
 RecentResults::RecentResults() : recentList{}
 {
