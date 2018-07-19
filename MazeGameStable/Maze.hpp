@@ -30,6 +30,9 @@ class Maze
         bool mHasntWon;
         int mHitPoints;
         int mEnemyCount;
+        int mEndX;
+        int mEndY;
+        char mEnemySprite;
         class Map *mMap;
         class Player *mPlayer;
         vector<class Enemy *> mEnemy;
@@ -38,8 +41,7 @@ class Maze
         void mazeTemplate();
         void displayMazeInitial();
         void displayMazePlaying();
-        int endPointX();
-        int endPointY();
+        int endPoints();
         char getch();
 };
 

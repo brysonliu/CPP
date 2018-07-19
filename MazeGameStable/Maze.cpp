@@ -4,6 +4,7 @@ Maze::Maze()
 {
     mHasntWon = true;
     mHitPoints = 100;
+	mEnemySprite = '!';
 }
 
 Maze::~Maze()
@@ -24,7 +25,7 @@ void Maze::introduction()
 	cout << endl;
 	cout << "WELCOME TO THE MAZE! \n \n" <<
 			"Your goal is to get your sprite (@) from the start of the maze (marked by an \"S\") \n" <<
-			"to the end of the maze (marked by an \"E\") while avoiding enemies (marked by \"X\"s). \n" <<
+			"to the end of the maze (marked by an \"E\") while avoiding enemies (marked by \"!\"s). \n" <<
 			"Enemies will deal 20 damage to your sprite upon contact. If it loses all 100 hit points, \n" <<
 			"you shall lose! Good luck!" << endl << endl;
 	cout << "Controls: W - Up \n" <<
@@ -90,6 +91,7 @@ void Maze::mazeTemplate()
 			maze[i][j] = mMap->getMap(i, j);
 		}
     }
+
 	delete mMap;
 }
 
@@ -106,6 +108,7 @@ void Maze::displayMazeInitial()
 			usleep(5500);
 			cout.flush();
 		}
+
 		cout << endl;
     }
 }
@@ -121,13 +124,15 @@ void Maze::displayMazePlaying()
 		{
 			cout << maze[i][j] << " ";
 		}
+
 		cout << endl;
     }
+
 	cout << endl << "HitPoints: " << mHitPoints << endl;
 	cout << "Last User Input: ";
 }
 
-int Maze::endPointX()
+int Maze::endPoints()
 {
 	for (int x = 0; x < mMazeSize; x++)
 	{
@@ -135,21 +140,8 @@ int Maze::endPointX()
 		{
 			if (maze[x][y] == 'E')
 			{
-				return x;
-			}
-		}
-	}
-}
-
-int Maze::endPointY()
-{
-	for (int x = 0; x < mMazeSize; x++)
-	{
-		for (int y = 0; y < mMazeSize; y++)
-		{
-			if (maze[x][y] == 'E')
-			{
-				return y;
+				mEndX = y;
+				mEndY = x;
 			}
 		}
 	}
@@ -167,6 +159,7 @@ void Maze::play()
 {
 	introduction();
 	mazeTemplate();
+	endPoints();
 	
 	mPlayer = new Player('@');
 
@@ -174,11 +167,8 @@ void Maze::play()
 	
 	for (int e = 0; e < mEnemy.size(); e++)
 	{
-		mEnemy[e] = new Enemy(maze, mMazeSize, 'X');
+		mEnemy[e] = new Enemy(maze, mMazeSize, mEnemySprite);
 	}
-
-	int endX = endPointX();
-	int endY = endPointY();
 	
 	displayMazeInitial();
 	
@@ -209,7 +199,7 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->x--;
-					if (maze[mPlayer->y][mPlayer->x - 1] == 'X')
+					if (maze[mPlayer->y][mPlayer->x - 1] == mEnemySprite)
 					{
 						mHitPoints = mHitPoints - 20;
 					}
@@ -220,7 +210,7 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->y--;
-					if (maze[mPlayer->y - 1][mPlayer->x] == 'X')
+					if (maze[mPlayer->y - 1][mPlayer->x] == mEnemySprite)
 					{
 						mHitPoints = mHitPoints - 20;
 					}
@@ -231,7 +221,7 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->y++;
-					if (maze[mPlayer->y + 1][mPlayer->x] == 'X')
+					if (maze[mPlayer->y + 1][mPlayer->x] == mEnemySprite)
 					{
 						mHitPoints = mHitPoints - 20;
 					}
@@ -242,7 +232,7 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->x++;
-					if (maze[mPlayer->y][mPlayer->x + 1] == 'X')
+					if (maze[mPlayer->y][mPlayer->x + 1] == mEnemySprite)
 					{
 						mHitPoints = mHitPoints - 20;
 					}
@@ -287,7 +277,7 @@ void Maze::play()
 			mHasntWon = false;
 		}
 
-		if (mPlayer->x == endX && mPlayer->y == endY)
+		if (mPlayer->x == mEndX && mPlayer->y == mEndY)
 		{
 			displayMazePlaying();
 			cout << endl << endl << "YOU WIN!" << endl << endl;
