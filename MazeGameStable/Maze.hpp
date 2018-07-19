@@ -4,6 +4,7 @@
 #include "Map.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "Menu.hpp"
 #include <stdlib.h>
 #include <string>
 #include <iostream>
@@ -33,15 +34,16 @@ class Maze
         int mEndX;
         int mEndY;
         char mEnemySprite;
+        class Menu *mMenu;
         class Map *mMap;
         class Player *mPlayer;
         vector<class Enemy *> mEnemy;
-
-        void introduction();
+        
+        void menu();
         void mazeTemplate();
         void displayMazeInitial();
         void displayMazePlaying();
-        int endPoints();
+        void endPoints();
         char getch();
 };
 

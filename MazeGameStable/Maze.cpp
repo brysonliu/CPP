@@ -16,66 +16,13 @@ Maze::~Maze()
 	}
 }
 
-void Maze::introduction()
+void Maze::menu()
 {
-	system("clear");
+	mMenu = new Menu();
 	
-	int size;
-
-	cout << endl;
-	cout << "WELCOME TO THE MAZE! \n \n" <<
-			"Your goal is to get your sprite (@) from the start of the maze (marked by an \"S\") \n" <<
-			"to the end of the maze (marked by an \"E\") while avoiding enemies (marked by \"!\"s). \n" <<
-			"Enemies will deal 20 damage to your sprite upon contact. If it loses all 100 hit points, \n" <<
-			"you shall lose! Good luck!" << endl << endl;
-	cout << "Controls: W - Up \n" <<
-			"          A - Left \n" <<
-			"          S - Down \n" <<
-			"          D - Right \n" <<
-			"          Q - (QUIT) \n" << endl;
-	cout << "What level of challenge are you feeling up to?" << endl;
-	cout << "1: Small Maze \n" <<
-			"2: Medium Maze \n" <<
-			"3: Large Maze \n" <<
-			"4: Exit \n" << endl;
-	cout << "Enter number of choice here: ";
-	
-	while(true)
-	{
-		cin >> size;
-
-		if (size >= 1 && size <= 3)
-		{
-			break;
-		}
-		else if (size == 4)
-		{
-			cout << endl;
-			exit(0);
-		}
-		else
-		{
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cout << "Please enter only the number of one of the three available choices: ";
-		}
-	}
-	
-	switch(size)
-	{
-		case 1:
-			mMazeSize = 20;
-			mEnemyCount = 5;
-			break;
-		case 2:
-			mMazeSize = 30;
-			mEnemyCount = 10;
-			break;
-		case 3:
-			mMazeSize = 40;
-			mEnemyCount = 15;
-			break;
-	}
+	mMenu->introduction();
+	mMazeSize = mMenu->mazeSize;
+	mEnemyCount = mMenu->enemyCount;
 }
 
 void Maze::mazeTemplate()
@@ -132,7 +79,7 @@ void Maze::displayMazePlaying()
 	cout << "Last User Input: ";
 }
 
-int Maze::endPoints()
+void Maze::endPoints()
 {
 	for (int x = 0; x < mMazeSize; x++)
 	{
@@ -157,7 +104,7 @@ char Maze::getch()
 
 void Maze::play()
 {
-	introduction();
+	menu();
 	mazeTemplate();
 	endPoints();
 	

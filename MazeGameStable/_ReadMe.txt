@@ -2,9 +2,9 @@ MAZE GAME
 
 Author: Bryson Liu
 Date: Thursday 07-19-2018
-Time: 12:53:20 PM (UTC-8; Pacific)
-Version: 3.07 (Stable)
-Build: 3007
+Time: 03:08:32 PM (UTC-8; Pacific)
+Version: 3.11 (Stable)
+Build: 3011
 
 
 ChangeLog
@@ -30,3 +30,4 @@ v2.56 -- improved menu design
 v2.61 -- optimized standard library includes and headers
 v2.74 -- optimized code performance and fixed bug with endpoint checking
 v3.07 -- added framework for new enemy features
+v3.11 -- added class "Menu"
