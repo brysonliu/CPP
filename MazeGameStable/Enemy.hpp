@@ -15,6 +15,7 @@ class Enemy
 {
     public:
         char sprite;
+        int damage;
         int x;
         int y;
         bool once;
@@ -22,11 +23,15 @@ class Enemy
         DirectionX pastDirX;
         DirectionY pastDirY;
         
-        Enemy(vector< vector<char> > &maze, int size, char icon);
+        Enemy(vector< vector<char> > &maze, int size, char icon, bool isRandom);
         ~Enemy();
         
         void resetMove();
         char move(vector< vector<char> > &maze, int i, int j);
+    
+    private:
+        void shuffle();
+        void difficulty(char spr);
 };
 
 #endif

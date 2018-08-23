@@ -4,7 +4,6 @@ Maze::Maze()
 {
     mHasntWon = true;
     mHitPoints = 100;
-	mEnemySprite = '!';
 }
 
 Maze::~Maze()
@@ -23,6 +22,10 @@ void Maze::menu()
 	mMenu->introduction();
 	mMazeSize = mMenu->mazeSize;
 	mEnemyCount = mMenu->enemyCount;
+	mEnemySprite = mMenu->enemySprite;
+	mEnemyRandom = mMenu->randomDifficulty;
+
+	delete mMenu;
 }
 
 void Maze::mazeTemplate()
@@ -30,6 +33,7 @@ void Maze::mazeTemplate()
 	maze.resize(mMazeSize, vector<char>(mMazeSize, '#'));
 
 	mMap = new Map(mMazeSize);
+	
 	mMap->create();
 	for(int i = 0; i < mMazeSize; ++i)
 	{
@@ -114,7 +118,7 @@ void Maze::play()
 	
 	for (int e = 0; e < mEnemy.size(); e++)
 	{
-		mEnemy[e] = new Enemy(maze, mMazeSize, mEnemySprite);
+		mEnemy[e] = new Enemy(maze, mMazeSize, mEnemySprite, mEnemyRandom);
 	}
 	
 	displayMazeInitial();
@@ -146,9 +150,13 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->x--;
-					if (maze[mPlayer->y][mPlayer->x - 1] == mEnemySprite)
+					for (int e = 0; e < mEnemy.size(); e++)
 					{
-						mHitPoints = mHitPoints - 20;
+						if (maze[mPlayer->y][mPlayer->x - 1] == mEnemy[e]->sprite)
+						{
+							mHitPoints = mHitPoints - mEnemy[e]->damage;
+							break;
+						}
 					}
 				}
 				break;
@@ -157,9 +165,13 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->y--;
-					if (maze[mPlayer->y - 1][mPlayer->x] == mEnemySprite)
+					for (int e = 0; e < mEnemy.size(); e++)
 					{
-						mHitPoints = mHitPoints - 20;
+						if (maze[mPlayer->y - 1][mPlayer->x] == mEnemy[e]->sprite)
+						{
+							mHitPoints = mHitPoints - mEnemy[e]->damage;
+							break;
+						}
 					}
 				}
 				break;
@@ -168,9 +180,13 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->y++;
-					if (maze[mPlayer->y + 1][mPlayer->x] == mEnemySprite)
+					for (int e = 0; e < mEnemy.size(); e++)
 					{
-						mHitPoints = mHitPoints - 20;
+						if (maze[mPlayer->y + 1][mPlayer->x] == mEnemy[e]->sprite)
+						{
+							mHitPoints = mHitPoints - mEnemy[e]->damage;
+							break;
+						}
 					}
 				}
 				break;
@@ -179,9 +195,13 @@ void Maze::play()
 				{
 					maze[mPlayer->y][mPlayer->x] = ' ';
 					mPlayer->x++;
-					if (maze[mPlayer->y][mPlayer->x + 1] == mEnemySprite)
+					for (int e = 0; e < mEnemy.size(); e++)
 					{
-						mHitPoints = mHitPoints - 20;
+						if (maze[mPlayer->y][mPlayer->x + 1] == mEnemy[e]->sprite)
+						{
+							mHitPoints = mHitPoints - mEnemy[e]->damage;
+							break;
+						}
 					}
 				}
 				break;
@@ -213,7 +233,7 @@ void Maze::play()
 		{
 			if (mPlayer->x == mEnemy[e]->x && mPlayer->y == mEnemy[e]->y)
 			{
-				mHitPoints = mHitPoints - 20;
+				mHitPoints = mHitPoints - mEnemy[e]->damage;
 			}
 		}
 		

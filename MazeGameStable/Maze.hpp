@@ -28,12 +28,13 @@ class Maze
         
     private:
         int mMazeSize;
+        int mEndX;
+        int mEndY;
         bool mHasntWon;
         int mHitPoints;
         int mEnemyCount;
-        int mEndX;
-        int mEndY;
         char mEnemySprite;
+        bool mEnemyRandom;
         class Menu *mMenu;
         class Map *mMap;
         class Player *mPlayer;

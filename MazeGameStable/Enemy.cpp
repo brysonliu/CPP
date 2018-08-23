@@ -1,8 +1,17 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(vector< vector<char> > &maze, int size, char icon)
+Enemy::Enemy(vector< vector<char> > &maze, int size, char icon, bool isRandom)
 {
-    sprite = icon;
+	if (isRandom)
+	{
+		shuffle();
+	}
+	else
+	{
+		sprite = icon;
+	}
+	
+	difficulty(sprite);
 	x = rand() % size;
 	y = rand() % size;
 	once = true;
@@ -15,7 +24,7 @@ Enemy::Enemy(vector< vector<char> > &maze, int size, char icon)
 		x = rand() % size;
 		y = rand() % size;
 	}
-
+	
 	if (maze[y][x] == ' ')
 	{
 		maze[y][x] = sprite;
@@ -25,6 +34,40 @@ Enemy::Enemy(vector< vector<char> > &maze, int size, char icon)
 Enemy::~Enemy()
 {
 
+}
+
+void Enemy::shuffle()
+{
+	int randDiff = rand() % 3;
+
+	switch(randDiff)
+	{
+		case 0:
+			sprite = '&';
+			break;
+		case 1:
+			sprite = '%';
+			break;
+		case 2:
+			sprite = '!';
+			break;
+	}
+}
+
+void Enemy::difficulty(char spr)
+{
+	switch(spr)
+	{
+		case '&':
+			damage = 10;
+			break;
+		case '%':
+			damage = 20;
+			break;
+		case '!':
+			damage = 25;
+			break;
+	}
 }
 
 void Enemy::resetMove()

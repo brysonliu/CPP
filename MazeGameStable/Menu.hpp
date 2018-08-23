@@ -11,6 +11,7 @@ class Menu
         int mazeSize;
         int enemyCount;
         int enemyDifficulty;
+        bool randomDifficulty;
         char enemySprite;
     
         Menu();
